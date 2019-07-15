@@ -1,0 +1,24 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.test.money.transfer.dao.ClientMapper">
+    <resultMap id="ClientMap" type="com.test.money.transfer.model.Client">
+        <result property="id" column="client_id"/>
+        <result property="firstName" column="first_name"/>
+        <result property="lastName" column="last_name"/>
+    </resultMap>
+
+    <select id="findAll" parameterType="list" resultMap="ClientMap">
+        SELECT * FROM clients;
+    </select>
+
+    <insert id="create" parameterType="com.test.money.transfer.model.Client">
+        Insert INTO clients
+        (first_name, last_name)
+        VALUES
+        (#{firstName}, #{lastName});
+    </insert>
+
+</mapper>
