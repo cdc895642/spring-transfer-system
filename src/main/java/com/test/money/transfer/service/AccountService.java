@@ -7,5 +7,5 @@ public interface AccountService {
 
   Account save(Account account);
 
-  List<Account> getAccountsByClientId(Integer clientId);
+  List<Account> getAccountsByClientId(int clientId);
 }

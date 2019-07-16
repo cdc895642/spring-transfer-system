@@ -2,58 +2,60 @@ package com.test.money.transfer.dao;
 
 import static org.junit.Assert.*;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.Module;
-import com.test.money.transfer.configuration.DatabaseModule;
-import com.test.money.transfer.configuration.MyBatisModuleImpl;
+import com.test.money.transfer.BaseIntegrationTest;
 import com.test.money.transfer.model.Client;
-import java.util.ArrayList;
-import java.util.List;
-import org.flywaydb.core.Flyway;
-import org.junit.Before;
+
+import org.apache.ibatis.exceptions.PersistenceException;
 import org.junit.Test;
 
-public class ClientMapperTest {
+import java.util.List;
 
-  private Injector injector;
+public class ClientMapperTest extends BaseIntegrationTest {
 
-  @Before
-  public void setUp() throws Exception {
-    Flyway.configure()
-        .dataSource("jdbc:hsqldb:mem:appmemdb", "admin", "password")
-        .load()
-        .migrate();
+    @Test
+    public void create_insertRecord_returnNewId() {
+        //Arrange
+        Client firstClient = new Client();
+        firstClient.setName("first1");
+        firstClient.setEmail("a@email.com");
 
-    List<Module> modules = createMyBatisModule();
-    injector = Guice.createInjector(modules);
-  }
+        //Act
+        clientDao.create(firstClient);
 
-  private List<Module> createMyBatisModule() {
-    List<Module> modules = new ArrayList<>();
-    modules.add(new DatabaseModule());
-    modules.add(new MyBatisModuleImpl());
+        //Arrange
+        assertNotNull(firstClient.getId());
+    }
 
-    return modules;
-  }
+    @Test(expected = PersistenceException.class)
+    public void create_insert2RecordsTheSameEmail_throwException() {
+        //Arrange
+        Client firstClient = new Client();
+        firstClient.setName("first1");
+        firstClient.setEmail("a@email.com");
+        Client secondClient = new Client();
+        secondClient.setName("second1");
+        secondClient.setEmail("a@email.com");
 
-  @Test
-  public void create() throws Exception {
-    Client firstClient = new Client();
-    firstClient.setFirstName("first1");
-    firstClient.setLastName("last1");
-    ClientMapper clientDao = injector.getInstance(ClientMapper.class);
-    clientDao.create(firstClient);
-    firstClient.setLastName("last2");
-    clientDao.create(firstClient);
-    List<Client> all = clientDao.findAll();
-    all.size();
-    Client client = all.get(0);
-    client.getFirstName();
-  }
+        //Act
+        clientDao.create(firstClient);
+        clientDao.create(secondClient);
+    }
 
-  @Test
-  public void findAll() throws Exception {
-  }
+    @Test
+    public void findAll_returnNotEmptyResult() {
+        // Arrange
+        final int NOT_EXPECTED_RESULT = 0;
+        //create record in table
+        Client firstClient = new Client();
+        firstClient.setName("first1");
+        firstClient.setEmail("a@email.com");
+        clientDao.create(firstClient);
+
+        //Act
+        List<Client> allClients = clientDao.findAll();
+
+        //Assert
+        assertNotEquals(NOT_EXPECTED_RESULT, allClients.size());
+    }
 
 }

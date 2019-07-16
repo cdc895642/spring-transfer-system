@@ -11,7 +11,5 @@ public interface ClientMapper {
 
   void create(Client client);
 
-  //  @ResultMap("ClientMap")
-//  @Select("Select * from clients")
   List<Client> findAll();
 }
