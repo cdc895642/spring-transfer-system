@@ -14,6 +14,10 @@
         SELECT * FROM clients;
     </select>
 
+    <select id="findById" parameterType="java.lang.Integer" resultMap="ClientMap">
+        SELECT * FROM clients WHERE client_id = #{client_id} ;
+    </select>
+
     <insert id="create" parameterType="com.test.money.transfer.model.Client" useGeneratedKeys="true" keyProperty="id">
         Insert INTO clients
         (client_name, email)

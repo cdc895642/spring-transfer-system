@@ -7,6 +7,7 @@ import com.test.money.transfer.configuration.DatabaseModule;
 import com.test.money.transfer.configuration.MyBatisModuleImpl;
 import com.test.money.transfer.dao.AccountMapper;
 import com.test.money.transfer.dao.ClientMapper;
+import com.test.money.transfer.dao.CurrencyMapper;
 import org.flywaydb.core.Flyway;
 import org.junit.After;
 import org.junit.Before;
@@ -19,6 +20,7 @@ public class BaseIntegrationTest {
     private Injector injector;
     protected ClientMapper clientDao;
     protected AccountMapper accountDao;
+    protected CurrencyMapper currencyDao;
     private Flyway flyway;
 
     @Before
@@ -32,6 +34,7 @@ public class BaseIntegrationTest {
         injector = Guice.createInjector(modules);
         clientDao = injector.getInstance(ClientMapper.class);
         accountDao = injector.getInstance(AccountMapper.class);
+        currencyDao = injector.getInstance(CurrencyMapper.class);
     }
 
     @After

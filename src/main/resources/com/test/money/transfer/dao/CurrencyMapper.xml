@@ -1,0 +1,28 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.test.money.transfer.dao.CurrencyMapper">
+    <resultMap id="CurrencyMap" type="com.test.money.transfer.model.CurrencyModel">
+        <id property="id" column="currency_id"/>
+        <result property="code" column="code" typeHandler="org.apache.ibatis.type.EnumTypeHandler"/>
+    </resultMap>
+
+    <select id="findAll" parameterType="list" resultMap="CurrencyMap">
+        SELECT * FROM currency;
+    </select>
+
+    <select id="findCurrencyCodeById" parameterType="java.lang.Integer"
+        resultType="com.test.money.transfer.model.Currency">
+        SELECT code FROM currency WHERE currency_id = #{id} ;
+    </select>
+
+    <!--<insert id="create" parameterType="com.test.money.transfer.model.Client" useGeneratedKeys="true" keyProperty="id">-->
+    <!--Insert INTO clients-->
+    <!--(client_name, email)-->
+    <!--VALUES-->
+    <!--(#{name}, #{email});-->
+    <!--</insert>-->
+
+</mapper>

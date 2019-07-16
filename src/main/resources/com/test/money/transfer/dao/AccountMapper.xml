@@ -4,27 +4,29 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.test.money.transfer.dao.AccountMapper">
-    <resultMap id="ClientMap" type="com.test.money.transfer.model.Account">
+    <resultMap id="AccountMap" type="com.test.money.transfer.model.Account">
         <id property="id" column="account_id"/>
-        <result property="currency" javaType="com.test.money.transfer.model.Currency" column="currency"/>
         <result property="balance" column="balance"/>
-        <association property="client" column="client_id" javaType="com.test.money.transfer.model.Client"
-                     select="selectClientForAccount"/>
+        <association property="currency" column="currency_id"
+            javaType="com.test.money.transfer.model.Currency"
+            select="com.test.money.transfer.dao.CurrencyMapper.findCurrencyCodeById"
+            fetchType="eager"/>
+        <association property="client" column="client_id"
+            javaType="com.test.money.transfer.model.Client"
+            select="com.test.money.transfer.dao.ClientMapper.findById"
+            fetchType="lazy"/>
     </resultMap>
 
-    <select id="selectClientForAccount" parameterType="java.lang.Integer" resultType="com.test.money.transfer.model.Client">
-        SELECT * FROM clients WHERE client_id = #{client_id} ;
+    <select id="getAccountsByClientId" parameterType="java.lang.Integer" resultMap="AccountMap">
+        SELECT * FROM accounts WHERE client_id = #{client_id}
     </select>
-
-    <select id="getAccountsByClientId" parameterType="java.lang.Integer" resultType="com.test.money.transfer.model.Client">
-        SELECT * FROM accounts WHERE client_id = #{client_id} ;
-    </select>
-
-<!--    <insert id="create" parameterType="com.test.money.transfer.model.Client" useGeneratedKeys="true" keyProperty="id">-->
-<!--        Insert INTO clients-->
-<!--        (client_name, email)-->
-<!--        VALUES-->
-<!--        (#{name}, #{email});-->
-<!--    </insert>-->
+    <!--SELECT account_id, currency, balance FROM accounts ;-->
+    <!--SELECT * FROM accounts WHERE client_id = #{client_id} ;-->
+    <!--    <insert id="create" parameterType="com.test.money.transfer.model.Client" useGeneratedKeys="true" keyProperty="id">-->
+    <!--        Insert INTO clients-->
+    <!--        (client_name, email)-->
+    <!--        VALUES-->
+    <!--        (#{name}, #{email});-->
+    <!--    </insert>-->
 
 </mapper>
