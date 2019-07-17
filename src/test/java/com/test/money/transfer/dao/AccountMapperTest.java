@@ -14,6 +14,22 @@ import static org.junit.Assert.*;
 
 public class AccountMapperTest extends BaseIntegrationTest {
 
+    @Test
+    public void save_changeBalanceCorrectAccount_changeBalance() {
+        //Arrange
+        final BigDecimal NEW_BALANCE = BigDecimal.valueOf(1000000.00).setScale(2);
+        final int CLIENT_ID = 1;
+        Account account = accountDao.getAccountsByClientId(CLIENT_ID).get(0);
+        account.setBalance(NEW_BALANCE);
+
+        //Act
+        accountDao.save(account);
+        Account result = accountDao.getAccountsByClientId(CLIENT_ID).get(0);
+
+        //Assert
+        assertEquals(NEW_BALANCE, result.getBalance());
+    }
+
     @Test(expected = PersistenceException.class)
     public void create_createAccountWithTheSameCleintAndCurrency_throwException() {
         //Arrange
@@ -22,7 +38,9 @@ public class AccountMapperTest extends BaseIntegrationTest {
         Account account = new Account();
         account.setBalance(BigDecimal.valueOf(10));
         account.setClient(client);
-        account.setCurrency(Currency.USD);
+        Currency usd = new Currency();
+        usd.setId(1);
+        account.setCurrency(usd);
 
         //Act
         accountDao.create(account);
@@ -36,7 +54,9 @@ public class AccountMapperTest extends BaseIntegrationTest {
         Account account = new Account();
         account.setBalance(BigDecimal.valueOf(10));
         account.setClient(client);
-        account.setCurrency(Currency.EUR);
+        Currency eur = new Currency();
+        eur.setId(2);
+        account.setCurrency(eur);
 
         //Act
         accountDao.create(account);

@@ -9,4 +9,6 @@ public interface AccountMapper {
     void create(Account account);
 
     List<Account> getAccountsByClientId(int clientId);
+
+  void save(Account account);
 }

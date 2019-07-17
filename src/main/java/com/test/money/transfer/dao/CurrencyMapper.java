@@ -1,17 +1,16 @@
 package com.test.money.transfer.dao;
 
 import com.test.money.transfer.model.Currency;
-import com.test.money.transfer.model.CurrencyModel;
 import java.util.List;
 
 public interface CurrencyMapper {
 
-  int findIdByCurrencyCode(Currency code);
+  Integer findIdByCurrencyCode(String code);
 
-  Currency findCurrencyCodeById(int id);
+  Currency findCurrencyById(int id);
 
-  void create(Currency code);
+  void create(Currency currency);
 
-  List<CurrencyModel> findAll();
+  List<Currency> findAll();
 
 }

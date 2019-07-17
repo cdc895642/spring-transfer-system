@@ -4,25 +4,31 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.test.money.transfer.dao.CurrencyMapper">
-    <resultMap id="CurrencyMap" type="com.test.money.transfer.model.CurrencyModel">
+    <resultMap id="CurrencyMap" type="com.test.money.transfer.model.Currency">
         <id property="id" column="currency_id"/>
-        <result property="code" column="code" typeHandler="org.apache.ibatis.type.EnumTypeHandler"/>
+        <result property="code" column="code" javaType="java.lang.String"/>
     </resultMap>
 
     <select id="findAll" parameterType="list" resultMap="CurrencyMap">
         SELECT * FROM currency;
     </select>
 
-    <select id="findCurrencyCodeById" parameterType="java.lang.Integer"
-        resultType="com.test.money.transfer.model.Currency">
-        SELECT code FROM currency WHERE currency_id = #{id} ;
+    <select id="findCurrencyById" parameterType="java.lang.Integer"
+        resultMap="CurrencyMap">
+        SELECT * FROM currency WHERE currency_id = #{id} ;
     </select>
 
-    <select id="findIdByCurrencyCode" parameterType="com.test.money.transfer.model.Currency"
+    <select id="findIdByCurrencyCode" parameterType="java.lang.String"
             resultType="java.lang.Integer">
-        SELECT currency_id FROM currency WHERE code = #{code.toString()}
+        SELECT currency_id FROM currency WHERE code = #{code}
     </select>
 
-    <insert id="create"></insert>
+    <insert id="create" parameterType="com.test.money.transfer.model.Currency"
+        useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO currency
+        (code)
+        VALUES
+        (#{code})
+    </insert>
 
 </mapper>

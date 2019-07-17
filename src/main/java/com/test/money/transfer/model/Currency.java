@@ -1,5 +1,10 @@
 package com.test.money.transfer.model;
 
-public enum Currency {
-  USD, EUR;
+import lombok.Data;
+
+@Data
+public class Currency {
+
+  private Integer id;
+  private String code;
 }
