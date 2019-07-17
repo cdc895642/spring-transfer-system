@@ -18,11 +18,11 @@
         SELECT code FROM currency WHERE currency_id = #{id} ;
     </select>
 
-    <!--<insert id="create" parameterType="com.test.money.transfer.model.Client" useGeneratedKeys="true" keyProperty="id">-->
-    <!--Insert INTO clients-->
-    <!--(client_name, email)-->
-    <!--VALUES-->
-    <!--(#{name}, #{email});-->
-    <!--</insert>-->
+    <select id="findIdByCurrencyCode" parameterType="com.test.money.transfer.model.Currency"
+            resultType="java.lang.Integer">
+        SELECT currency_id FROM currency WHERE code = #{code.toString()}
+    </select>
+
+    <insert id="create"></insert>
 
 </mapper>

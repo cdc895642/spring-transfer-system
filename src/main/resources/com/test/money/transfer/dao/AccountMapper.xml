@@ -1,32 +1,31 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.test.money.transfer.dao.AccountMapper">
     <resultMap id="AccountMap" type="com.test.money.transfer.model.Account">
         <id property="id" column="account_id"/>
         <result property="balance" column="balance"/>
         <association property="currency" column="currency_id"
-            javaType="com.test.money.transfer.model.Currency"
-            select="com.test.money.transfer.dao.CurrencyMapper.findCurrencyCodeById"
-            fetchType="eager"/>
+                     javaType="com.test.money.transfer.model.Currency"
+                     select="com.test.money.transfer.dao.CurrencyMapper.findCurrencyCodeById"
+                     fetchType="eager"/>
         <association property="client" column="client_id"
-            javaType="com.test.money.transfer.model.Client"
-            select="com.test.money.transfer.dao.ClientMapper.findById"
-            fetchType="lazy"/>
+                     javaType="com.test.money.transfer.model.Client"
+                     select="com.test.money.transfer.dao.ClientMapper.findById"
+                     fetchType="lazy"/>
     </resultMap>
 
     <select id="getAccountsByClientId" parameterType="java.lang.Integer" resultMap="AccountMap">
         SELECT * FROM accounts WHERE client_id = #{client_id}
     </select>
-    <!--SELECT account_id, currency, balance FROM accounts ;-->
-    <!--SELECT * FROM accounts WHERE client_id = #{client_id} ;-->
-    <!--    <insert id="create" parameterType="com.test.money.transfer.model.Client" useGeneratedKeys="true" keyProperty="id">-->
-    <!--        Insert INTO clients-->
-    <!--        (client_name, email)-->
-    <!--        VALUES-->
-    <!--        (#{name}, #{email});-->
-    <!--    </insert>-->
+
+    <insert id="create" parameterType="com.test.money.transfer.model.Account" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO accounts
+        (client_id, currency_id, balance)
+        VALUES
+        (#{client.id}, (select currency_id from currency where code=#{currency}), #{balance})
+    </insert>
 
 </mapper>

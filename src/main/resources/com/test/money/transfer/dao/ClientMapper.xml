@@ -15,7 +15,7 @@
     </select>
 
     <select id="findById" parameterType="java.lang.Integer" resultMap="ClientMap">
-        SELECT * FROM clients WHERE client_id = #{client_id} ;
+        SELECT * FROM clients WHERE client_id = #{id} ;
     </select>
 
     <insert id="create" parameterType="com.test.money.transfer.model.Client" useGeneratedKeys="true" keyProperty="id">

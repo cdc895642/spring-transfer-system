@@ -58,4 +58,28 @@ public class ClientMapperTest extends BaseIntegrationTest {
         assertNotEquals(NOT_EXPECTED_RESULT, allClients.size());
     }
 
+    @Test
+    public void findById_correctId_returnResult() {
+        //Arrange
+        int EXPECTED_CLIENT_ID = 1;
+
+        //Act
+        Client result = clientDao.findById(EXPECTED_CLIENT_ID);
+
+        //Assert
+        assertEquals(new Integer(EXPECTED_CLIENT_ID), result.getId());
+    }
+
+    @Test
+    public void findById_incorrectId_returnNull() {
+        //Arrange
+        int EXPECTED_CLIENT_ID = 100000000;
+
+        //Act
+        Client result = clientDao.findById(EXPECTED_CLIENT_ID);
+
+        //Assert
+        assertNull(result);
+    }
+
 }

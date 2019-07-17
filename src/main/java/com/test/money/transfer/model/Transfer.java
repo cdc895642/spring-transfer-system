@@ -2,21 +2,15 @@ package com.test.money.transfer.model;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@RequiredArgsConstructor
+@Data
 public class Transfer {
 
-  @Setter
   private Integer id;
-  private final Account from;
-  private final Account to;
-  private final BigDecimal amount;
-  @Setter
+  private Account from;
+  private Account to;
+  private BigDecimal amount;
   private Date date;
-  @Setter
   private boolean finished = false;
 }

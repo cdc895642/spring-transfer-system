@@ -11,7 +11,9 @@ import org.junit.Test;
 public class CurrencyMapperTest extends BaseIntegrationTest {
 
   @Test
-  public void findByCurrencyCode() throws Exception {
+  public void findIdByCurrencyCode() throws Exception {
+    int idByCurrencyCode = currencyDao.findIdByCurrencyCode(Currency.USD);
+    assertEquals(idByCurrencyCode, 1);
   }
 
   @Test
