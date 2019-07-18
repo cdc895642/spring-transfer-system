@@ -9,7 +9,7 @@
         <result property="balance" column="balance"/>
         <association property="currency" column="currency_id"
                      javaType="com.test.money.transfer.model.Currency"
-                     select="com.test.money.transfer.dao.CurrencyMapper.findCurrencyCodeById"
+            select="com.test.money.transfer.dao.CurrencyMapper.findCurrencyById"
                      fetchType="eager"/>
         <association property="client" column="client_id"
                      javaType="com.test.money.transfer.model.Client"
@@ -28,7 +28,7 @@
         (#{client.id}, #{currency.id}, #{balance})
     </insert>
 
-    <update id="save" parameterType="com.test.money.transfer.model.Account">
+    <update id="update" parameterType="com.test.money.transfer.model.Account">
         UPDATE accounts SET
         balance = #{balance}
         WHERE

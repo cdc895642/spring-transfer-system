@@ -19,7 +19,7 @@
                      fetchType="eager"/>
     </resultMap>
 
-    <select id="findAll" parameterType="list" resultType="TransferMap">
+    <select id="findAll" parameterType="list" resultType="com.test.money.transfer.model.Transfer">
         SELECT * FROM transfers;
     </select>
 

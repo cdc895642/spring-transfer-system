@@ -10,5 +10,5 @@ public interface AccountMapper {
 
     List<Account> getAccountsByClientId(int clientId);
 
-  void save(Account account);
+  void update(Account account);
 }
