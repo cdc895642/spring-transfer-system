@@ -8,6 +8,7 @@ import com.test.money.transfer.configuration.MyBatisModuleImpl;
 import com.test.money.transfer.dao.AccountMapper;
 import com.test.money.transfer.dao.ClientMapper;
 import com.test.money.transfer.dao.CurrencyMapper;
+import com.test.money.transfer.dao.TransferHistoryMapper;
 import org.flywaydb.core.Flyway;
 import org.junit.After;
 import org.junit.Before;
@@ -21,6 +22,7 @@ public class BaseIntegrationTest {
     protected ClientMapper clientDao;
     protected AccountMapper accountDao;
     protected CurrencyMapper currencyDao;
+    protected TransferHistoryMapper transferHistoryDao;
     private Flyway flyway;
 
     @Before
@@ -35,6 +37,7 @@ public class BaseIntegrationTest {
         clientDao = injector.getInstance(ClientMapper.class);
         accountDao = injector.getInstance(AccountMapper.class);
         currencyDao = injector.getInstance(CurrencyMapper.class);
+        transferHistoryDao = injector.getInstance(TransferHistoryMapper.class);
     }
 
     @After

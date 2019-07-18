@@ -3,6 +3,7 @@ package com.test.money.transfer.configuration;
 import com.test.money.transfer.dao.AccountMapper;
 import com.test.money.transfer.dao.ClientMapper;
 import com.test.money.transfer.dao.CurrencyMapper;
+import com.test.money.transfer.dao.TransferHistoryMapper;
 import com.test.money.transfer.model.Account;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.mybatis.guice.MyBatisModule;
@@ -16,5 +17,6 @@ public class MyBatisModuleImpl extends MyBatisModule {
     addMapperClass(ClientMapper.class);
     addMapperClass(AccountMapper.class);
     addMapperClass(CurrencyMapper.class);
+    addMapperClass(TransferHistoryMapper.class);
   }
 }
