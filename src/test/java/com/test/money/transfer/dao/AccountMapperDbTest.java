@@ -1,6 +1,6 @@
 package com.test.money.transfer.dao;
 
-import com.test.money.transfer.BaseIntegrationTest;
+import com.test.money.transfer.BaseIntegrationDbTest;
 import com.test.money.transfer.model.Account;
 import com.test.money.transfer.model.Client;
 import com.test.money.transfer.model.Currency;
@@ -12,10 +12,35 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class AccountMapperTest extends BaseIntegrationTest {
+public class AccountMapperDbTest extends BaseIntegrationDbTest {
 
     @Test
-    public void save_changeBalanceCorrectAccount_changeBalance() {
+    public void findById_correctId_returnResult() {
+        //Arrange
+        final int EXPECTED_ID = 1;
+
+        //Act
+        Account result = accountDao.findById(EXPECTED_ID);
+
+        //Assert
+        assertNotNull(result);
+        assertEquals(Integer.valueOf(EXPECTED_ID), result.getId());
+    }
+
+    @Test
+    public void findById_correctId_returnNull() {
+        //Arrange
+        final int EXPECTED_ID = 1000_000;
+
+        //Act
+        Account result = accountDao.findById(EXPECTED_ID);
+
+        //Assert
+        assertNull(result);
+    }
+
+    @Test
+    public void update_changeBalanceCorrectAccount_changeBalance() {
         //Arrange
         final BigDecimal NEW_BALANCE = BigDecimal.valueOf(1000000.00).setScale(2);
         final int CLIENT_ID = 1;
@@ -23,11 +48,29 @@ public class AccountMapperTest extends BaseIntegrationTest {
         account.setBalance(NEW_BALANCE);
 
         //Act
-        accountDao.save(account);
+        accountDao.update(account);
         Account result = accountDao.getAccountsByClientId(CLIENT_ID).get(0);
 
         //Assert
         assertEquals(NEW_BALANCE, result.getBalance());
+    }
+
+    @Test
+    public void update_changeBalanceIncorrectAccount_doNothing() {
+        //Arrange
+        final int EXPECTED_SIZE = 0;
+        final BigDecimal NEW_BALANCE = BigDecimal.valueOf(1000000.00).setScale(2);
+        final int CLIENT_ID = 1000_000;
+        Account account = new Account();
+        account.setId(CLIENT_ID);
+        account.setBalance(NEW_BALANCE);
+
+        //Act
+        accountDao.update(account);
+        List<Account> result = accountDao.getAccountsByClientId(CLIENT_ID);
+
+        //Assert
+        assertEquals(EXPECTED_SIZE, result.size());
     }
 
     @Test(expected = PersistenceException.class)

@@ -1,17 +1,17 @@
 package com.test.money.transfer.dao;
 
-import com.test.money.transfer.BaseIntegrationTest;
+import com.test.money.transfer.BaseIntegrationDbTest;
 import com.test.money.transfer.model.Account;
 import com.test.money.transfer.model.Transfer;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class TransferHistoryMapperTest extends BaseIntegrationTest {
+public class TransferHistoryMapperDbTest extends BaseIntegrationDbTest {
 
     @Test
     public void save(){
@@ -23,7 +23,7 @@ public class TransferHistoryMapperTest extends BaseIntegrationTest {
         Account to =new Account();
         to.setId(2);
         transfer.setTo(to);
-        Date date = new Date();
+        LocalDateTime date = LocalDateTime.now();
         transfer.setDate(date);
         transfer.setFinished(true);
         BigDecimal amount = new BigDecimal(10).setScale(2);

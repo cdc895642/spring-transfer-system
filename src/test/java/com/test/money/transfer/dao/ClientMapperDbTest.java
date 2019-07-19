@@ -2,7 +2,7 @@ package com.test.money.transfer.dao;
 
 import static org.junit.Assert.*;
 
-import com.test.money.transfer.BaseIntegrationTest;
+import com.test.money.transfer.BaseIntegrationDbTest;
 import com.test.money.transfer.model.Client;
 
 import org.apache.ibatis.exceptions.PersistenceException;
@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-public class ClientMapperTest extends BaseIntegrationTest {
+public class ClientMapperDbTest extends BaseIntegrationDbTest {
 
     @Test
     public void create_insertRecord_returnNewId() {

@@ -10,5 +10,7 @@ public interface AccountMapper {
 
     List<Account> getAccountsByClientId(int clientId);
 
-  void update(Account account);
+    void update(Account account);
+
+    Account findById(int accountId);
 }

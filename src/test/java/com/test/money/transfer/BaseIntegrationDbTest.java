@@ -16,7 +16,7 @@ import org.junit.Before;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BaseIntegrationTest {
+public class BaseIntegrationDbTest {
 
     private Injector injector;
     protected ClientMapper clientDao;

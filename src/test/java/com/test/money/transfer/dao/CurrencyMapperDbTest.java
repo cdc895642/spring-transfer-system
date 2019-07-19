@@ -2,13 +2,13 @@ package com.test.money.transfer.dao;
 
 import static org.junit.Assert.*;
 
-import com.test.money.transfer.BaseIntegrationTest;
+import com.test.money.transfer.BaseIntegrationDbTest;
 import com.test.money.transfer.model.Currency;
 import java.util.List;
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.junit.Test;
 
-public class CurrencyMapperTest extends BaseIntegrationTest {
+public class CurrencyMapperDbTest extends BaseIntegrationDbTest {
 
   @Test
   public void findIdByCurrencyCode_correctArgument_returnResult() {
