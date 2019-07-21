@@ -6,6 +6,7 @@ import com.test.money.transfer.model.Account;
 import com.test.money.transfer.validator.Validator;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.mybatis.guice.transactional.Isolation;
 import org.mybatis.guice.transactional.Transactional;
 
 import javax.inject.Inject;
@@ -37,7 +38,7 @@ public class AccountServiceImpl implements AccountService, BaseService {
     return account;
   }
 
-  @Transactional
+  @Transactional(isolation = Isolation.REPEATABLE_READ)
   @Override
   public Account update(Account account, Validator<Account>... validators) {
     if (!check(account, validators)) {
@@ -52,4 +53,11 @@ public class AccountServiceImpl implements AccountService, BaseService {
   public List<Account> getAccountsByClientId(int clientId) {
     return accountDao.getAccountsByClientId(clientId);
   }
+
+  @Transactional(isolation = Isolation.REPEATABLE_READ)
+  @Override
+  public Account findById(int accountId) {
+    return accountDao.findById(accountId);
+  }
+
 }

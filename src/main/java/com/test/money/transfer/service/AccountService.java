@@ -19,4 +19,6 @@ public interface AccountService {
   Account update(Account account, Validator<Account>... validators);
 
   List<Account> getAccountsByClientId(int clientId);
+
+  Account findById(int accountId);
 }

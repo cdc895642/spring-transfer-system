@@ -4,5 +4,5 @@ import com.test.money.transfer.model.Transfer;
 
 public interface TransferService {
 
-  Transfer perform(Transfer transfer);
+    Transfer perform(Transfer transfer) throws InterruptedException;
 }

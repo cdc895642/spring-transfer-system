@@ -128,4 +128,14 @@ public class AccountServiceImplTest {
         //Assert
         assertEquals(EXPECTED_SIZE, result.size());
     }
+
+    @Test
+    public void findById_correctId_returnAccount() {
+
+    }
+
+    @Test
+    public void findById_incorrectId_returnNull() {
+
+    }
 }

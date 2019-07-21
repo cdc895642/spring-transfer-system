@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 public class TransferHistoryMapperDbTest extends BaseIntegrationDbTest {
 
     @Test
-    public void save(){
+    public void save_correctInput_saveRocrd() {
         //Arrange
         Transfer transfer = new Transfer();
         Account from = new Account();
@@ -37,7 +37,7 @@ public class TransferHistoryMapperDbTest extends BaseIntegrationDbTest {
     }
 
     @Test
-    public void findAll(){
+    public void findAll__returnList() {
         //Arrange
         final int NOT_EXPECTED_SIZE = 0;
         List<Transfer> transfers = transferHistoryDao.findAll();
