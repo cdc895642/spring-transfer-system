@@ -3,6 +3,9 @@ package com.test.money.transfer.configuration;
 import com.google.inject.AbstractModule;
 import com.test.money.transfer.controller.*;
 
+/**
+ * Instantiate the controllers and inject them to the application.
+ */
 public class ControllerModule extends AbstractModule {
 
     @Override

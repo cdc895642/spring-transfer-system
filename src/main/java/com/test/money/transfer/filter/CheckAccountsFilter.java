@@ -8,7 +8,9 @@ import javax.inject.Singleton;
 
 import lombok.extern.slf4j.Slf4j;
 
-//todo integration test with service
+/**
+ * Check accounts which are used in the transfer.
+ */
 @Slf4j
 public class CheckAccountsFilter extends AbstractTransferFilter {
 
@@ -47,7 +49,7 @@ public class CheckAccountsFilter extends AbstractTransferFilter {
                 fromAccount, toAccount);
             return false;
         }
-//todo check in test comparing of the bigdecimals
+
         //check that account "fromAccount" has enough money
         if (fromAccount.getBalance().compareTo(transfer.getAmount()) < 0) {
             log.info(

@@ -9,6 +9,9 @@ import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.mybatis.guice.MyBatisModule;
 import org.mybatis.guice.datasource.builtin.PooledDataSourceProvider;
 
+/**
+ * Configure MyBatis.
+ */
 public class MyBatisModuleImpl extends MyBatisModule {
 
   protected void initialize() {

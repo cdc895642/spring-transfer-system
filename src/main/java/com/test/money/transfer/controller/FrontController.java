@@ -9,6 +9,9 @@ import javax.inject.Singleton;
 import static spark.Spark.exception;
 import static spark.Spark.notFound;
 
+/**
+ * For operations which uses in every HTTP request/response.
+ */
 @Singleton
 public class FrontController extends AbstractController {
 
@@ -21,10 +24,11 @@ public class FrontController extends AbstractController {
     @Override
     public void init() {
         exception(Exception.class, exceptionHandler);
+
         notFound(JsonConverter.convertToJson(
-                Error
-                        .builder()
-                        .message("unsupported operation")
-                        .build()));
+            Error
+                .builder()
+                .message("unsupported operation")
+                .build()));
     }
 }

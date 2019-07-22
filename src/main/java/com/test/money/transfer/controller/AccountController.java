@@ -9,6 +9,9 @@ import javax.inject.Inject;
 
 import static spark.Spark.*;
 
+/**
+ * Rest-Controller for operations with accounts of clients.
+ */
 public class AccountController extends AbstractController {
 
     private AccountService accountService;

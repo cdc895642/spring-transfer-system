@@ -10,21 +10,24 @@ import com.google.inject.util.Providers;
 import java.util.Properties;
 import org.mybatis.guice.datasource.helper.JdbcUrlAntFormatter;
 
+/**
+ * Configure DataSource fot the application.
+ */
 public class DatabaseModule implements Module {
 
-  public void configure(Binder binder) {
-    bindProperties(binder, createMyBatisProperties());
-    binder.bindConstant().annotatedWith(Names.named("JDBC.driver")).to("org.hsqldb.jdbcDriver");
-    binder.bind(Key.get(String.class, Names.named("JDBC.url"))).toProvider(
-        Providers.guicify(new JdbcUrlAntFormatter("jdbc:hsqldb:mem:appmemdb")));
-  }
+    public void configure(Binder binder) {
+        bindProperties(binder, createMyBatisProperties());
+        binder.bindConstant().annotatedWith(Names.named("JDBC.driver")).to("org.hsqldb.jdbcDriver");
+        binder.bind(Key.get(String.class, Names.named("JDBC.url"))).toProvider(
+            Providers.guicify(new JdbcUrlAntFormatter("jdbc:hsqldb:mem:appmemdb")));
+    }
 
-  private Properties createMyBatisProperties() {
-    final Properties myBatisProperties = new Properties();
-    myBatisProperties.setProperty("mybatis.environment.id", "prod");
-    myBatisProperties.setProperty("JDBC.username", "admin");
-    myBatisProperties.setProperty("JDBC.password", "password");
-    myBatisProperties.setProperty("JDBC.autoCommit", "false");
-    return myBatisProperties;
-  }
+    private Properties createMyBatisProperties() {
+        final Properties myBatisProperties = new Properties();
+        myBatisProperties.setProperty("mybatis.environment.id", "prod");
+        myBatisProperties.setProperty("JDBC.username", "admin");
+        myBatisProperties.setProperty("JDBC.password", "password");
+        myBatisProperties.setProperty("JDBC.autoCommit", "false");
+        return myBatisProperties;
+    }
 }

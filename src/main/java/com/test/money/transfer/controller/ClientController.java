@@ -1,7 +1,6 @@
 package com.test.money.transfer.controller;
 
 import com.test.money.transfer.model.Client;
-import com.test.money.transfer.model.Currency;
 import com.test.money.transfer.service.ClientService;
 import com.test.money.transfer.util.JsonConverter;
 import com.test.money.transfer.validator.NullValueValidatorImpl;
@@ -11,6 +10,9 @@ import javax.inject.Inject;
 import static spark.Spark.get;
 import static spark.Spark.post;
 
+/**
+ * Rest-Controller for operations with clients.
+ */
 public class ClientController extends AbstractController {
 
     private ClientService clientService;

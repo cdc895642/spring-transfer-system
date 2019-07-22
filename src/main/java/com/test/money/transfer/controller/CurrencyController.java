@@ -10,6 +10,9 @@ import com.test.money.transfer.validator.NullValueValidatorImpl;
 
 import javax.inject.Inject;
 
+/**
+ * Rest-Controller for operations with currencies.
+ */
 public class CurrencyController extends AbstractController {
 
     private CurrencyService currencyService;

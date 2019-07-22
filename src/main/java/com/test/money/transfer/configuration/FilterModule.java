@@ -5,6 +5,9 @@ import com.google.inject.Provides;
 import com.test.money.transfer.filter.CheckAccountsFilter;
 import com.test.money.transfer.filter.TransferFilter;
 
+/**
+ * Instantiate the TransferFilters and inject them to the application.
+ */
 public class FilterModule  extends AbstractModule {
 
     @Override

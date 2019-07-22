@@ -1,5 +1,8 @@
 package com.test.money.transfer.exception;
 
+/**
+ * Base exception for other types of exceptions in the application.
+ */
 public class TransferException extends RuntimeException {
 
     public TransferException(Throwable cause) {

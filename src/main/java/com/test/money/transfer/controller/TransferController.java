@@ -1,10 +1,8 @@
 package com.test.money.transfer.controller;
 
-import com.test.money.transfer.filter.CheckAccountsFilter;
 import com.test.money.transfer.filter.TransferFilter;
 import com.test.money.transfer.model.Transfer;
 import com.test.money.transfer.service.TransferService;
-import com.test.money.transfer.service.TransferServiceImpl;
 import com.test.money.transfer.util.JsonConverter;
 import com.test.money.transfer.validator.NullValueValidatorImpl;
 
@@ -12,6 +10,9 @@ import javax.inject.Inject;
 
 import static spark.Spark.get;
 
+/**
+ * Rest-Controller for transfers money between accounts of the clients.
+ */
 public class TransferController extends AbstractController {
 
     private TransferService transferService;
@@ -40,6 +41,7 @@ public class TransferController extends AbstractController {
         this.nullValueValidator = nullValueValidator;
     }
 
+    @Inject
     public void setTransferFilter(TransferFilter transferFilter) {
         this.transferFilter = transferFilter;
     }

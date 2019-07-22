@@ -7,6 +7,9 @@ import spark.ExceptionHandler;
 import spark.Request;
 import spark.Response;
 
+/**
+ * Exception handler for controllers.
+ */
 @Slf4j
 public class ControllerExceptionHandler implements ExceptionHandler<Exception> {
 

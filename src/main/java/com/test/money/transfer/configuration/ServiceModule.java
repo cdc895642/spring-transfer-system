@@ -3,6 +3,9 @@ package com.test.money.transfer.configuration;
 import com.google.inject.AbstractModule;
 import com.test.money.transfer.service.*;
 
+/**
+ * Instantiate the objects of the Services and inject them to the application.
+ */
 public class ServiceModule extends AbstractModule {
 
     @Override
