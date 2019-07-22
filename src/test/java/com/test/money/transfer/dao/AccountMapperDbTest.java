@@ -42,6 +42,7 @@ public class AccountMapperDbTest extends BaseIntegrationDbTest {
     @Test
     public void update_changeBalanceCorrectAccount_changeBalance() {
         //Arrange
+        final int EXPECTED_RESULT = 0;
         final BigDecimal NEW_BALANCE = BigDecimal.valueOf(1000000.00).setScale(2);
         final int CLIENT_ID = 1;
         Account account = accountDao.getAccountsByClientId(CLIENT_ID).get(0);
@@ -52,7 +53,7 @@ public class AccountMapperDbTest extends BaseIntegrationDbTest {
         Account result = accountDao.getAccountsByClientId(CLIENT_ID).get(0);
 
         //Assert
-        assertEquals(NEW_BALANCE, result.getBalance());
+        assertEquals(EXPECTED_RESULT, NEW_BALANCE.compareTo(result.getBalance()));
     }
 
     @Test

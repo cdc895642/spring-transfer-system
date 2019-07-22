@@ -91,7 +91,7 @@ public class AccountServiceImplTest {
         accountService.setAccountDao(accountDao);
 
         //Act
-        Account result=accountService.update(account, validator);
+        Account result = accountService.update(account, validator);
 
         //Assert
         assertNotNull(result);
@@ -131,11 +131,32 @@ public class AccountServiceImplTest {
 
     @Test
     public void findById_correctId_returnAccount() {
+        //Arrange
+        int accountId = 1;
+        Account account = new Account();
+        when(accountDao.findById(accountId)).thenReturn(account);
+        AccountServiceImpl accountService = new AccountServiceImpl();
+        accountService.setAccountDao(accountDao);
 
+        //Act
+        Account result = accountService.findById(accountId);
+
+        //Assert
+        assertEquals(account, result);
     }
 
     @Test
     public void findById_incorrectId_returnNull() {
+        //Arrange
+        int accountId = 1;
+        when(accountDao.findById(accountId)).thenReturn(null);
+        AccountServiceImpl accountService = new AccountServiceImpl();
+        accountService.setAccountDao(accountDao);
 
+        //Act
+        Account result = accountService.findById(accountId);
+
+        //Assert
+        assertNull(result);
     }
 }
