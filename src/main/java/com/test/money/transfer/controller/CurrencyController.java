@@ -1,19 +1,19 @@
 package com.test.money.transfer.controller;
 
-import static spark.Spark.exception;
 import static spark.Spark.get;
 import static spark.Spark.post;
 
-import com.google.gson.Gson;
-import com.test.money.transfer.dao.CurrencyMapper;
-import com.test.money.transfer.exception.TypeConverterException;
 import com.test.money.transfer.model.Currency;
+import com.test.money.transfer.service.CurrencyService;
+import com.test.money.transfer.util.JsonConverter;
+import com.test.money.transfer.validator.NullValueValidatorImpl;
+
 import javax.inject.Inject;
 
 public class CurrencyController extends AbstractController {
 
-    private CurrencyMapper currencyMapper;
-    private static final String JSON_FORMAT = "application/json";
+    private CurrencyService currencyService;
+    private NullValueValidatorImpl<Currency> nullValueValidator;
 
     public CurrencyController() {
         init();
@@ -23,29 +23,24 @@ public class CurrencyController extends AbstractController {
     public void init() {
         get("/currencies", (req, resp) -> {
             resp.type(JSON_FORMAT);
-            return currencyMapper.findAll();
-        }, jsonConverter::toJson);
+            return currencyService.findAll();
+        }, JsonConverter::convertToJson);
 
         post("/currencies", (req, resp) -> {
-            Currency currency = getRequestBody(req, Currency.class);
-            resp.type("application/json");
-            return currencyMapper.findAll();
-        }, jsonConverter::toJson);
+            Currency currency = JsonConverter.convertFromJson(req, Currency.class);
+            resp.type(JSON_FORMAT);
+            return currencyService.create(currency, nullValueValidator);
+        }, JsonConverter::convertToJson);
 
-        exception(Exception.class, (exception, request, response) -> {
-            response.type("application/json");
-            // Handle the exception here
-            if (exception instanceof TypeConverterException) {
-                response.status(410);
-            }
-//            response.status(400);
-            response.body("{\"message\":\"" + exception.getMessage() + "\"}");
-
-        });
     }
 
     @Inject
-    public void setCurrencyMapper(CurrencyMapper currencyMapper) {
-        this.currencyMapper = currencyMapper;
+    public void setCurrencyService(CurrencyService currencyService) {
+        this.currencyService = currencyService;
+    }
+
+    @Inject
+    public void setNullValueValidator(NullValueValidatorImpl<Currency> nullValueValidator) {
+        this.nullValueValidator = nullValueValidator;
     }
 }

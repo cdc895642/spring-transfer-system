@@ -10,10 +10,12 @@ import org.mybatis.guice.transactional.Isolation;
 import org.mybatis.guice.transactional.Transactional;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.math.BigDecimal;
 import java.util.List;
 
 @Slf4j
+@Singleton
 public class AccountServiceImpl implements AccountService, BaseService {
 
   private AccountMapper accountDao;

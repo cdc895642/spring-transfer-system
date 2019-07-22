@@ -7,9 +7,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.mybatis.guice.transactional.Transactional;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.List;
 
 @Slf4j
+@Singleton
 public class ClientServiceImpl implements ClientService, BaseService {
 
     private ClientMapper clientDao;
@@ -23,7 +25,7 @@ public class ClientServiceImpl implements ClientService, BaseService {
     @Override
     public Client create(Client client, Validator<Client>... validators) {
         if (!check(client, validators)) {
-            log.error("client is exist or is not valid : {}", client);
+            log.error("client is not exist or is not valid : {}", client);
             throw new IllegalArgumentException("check client - something went wrong");
         }
         clientDao.create(client);

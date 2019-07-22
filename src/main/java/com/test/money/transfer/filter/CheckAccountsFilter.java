@@ -4,6 +4,8 @@ import com.test.money.transfer.model.Account;
 import com.test.money.transfer.model.Transfer;
 import com.test.money.transfer.service.AccountService;
 import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import lombok.extern.slf4j.Slf4j;
 
 //todo integration test with service

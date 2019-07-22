@@ -1,23 +1,20 @@
 package com.test.money.transfer.service;
 
-import com.test.money.transfer.exception.TransferException;
 import com.test.money.transfer.filter.TransferFilter;
 import com.test.money.transfer.model.Account;
 import com.test.money.transfer.model.Transfer;
 import com.test.money.transfer.validator.Validator;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.Semaphore;
-import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.exceptions.PersistenceException;
 import org.mybatis.guice.transactional.Isolation;
 import org.mybatis.guice.transactional.Transactional;
 
 import java.time.LocalDateTime;
 
-//todo create multithread integration test
+@Singleton
 @Slf4j
 public class TransferServiceImpl implements TransferService {
 
@@ -25,11 +22,10 @@ public class TransferServiceImpl implements TransferService {
     private TransferFilter filter;
     private HistoryService historyService;
     private AccountService accountService;
-    private Validator<Account>[] validators;
 
     @Override
     @Transactional(isolation = Isolation.REPEATABLE_READ)
-    public Transfer perform(Transfer transfer) throws InterruptedException {
+    public Transfer perform(Transfer transfer, Validator<Account>... validators) throws InterruptedException {
         try {
             SEMAPHORE.acquire();
             //pass transfer through the filter chain
@@ -70,7 +66,6 @@ public class TransferServiceImpl implements TransferService {
         this.filter = filter;
     }
 
-    @Inject
     public void setHistoryService(HistoryService historyService) {
         this.historyService = historyService;
     }
@@ -80,8 +75,4 @@ public class TransferServiceImpl implements TransferService {
         this.accountService = accountService;
     }
 
-    @Inject
-    public void setValidators(Validator<Account>[] validators) {
-        this.validators = validators;
-    }
 }
