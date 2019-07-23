@@ -9,6 +9,9 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.List;
 
+/**
+ * Base implementation of the CurrencyService interface.
+ */
 @Singleton
 @Slf4j
 public class CurrencyServiceImpl implements CurrencyService, BaseService {

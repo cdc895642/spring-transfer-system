@@ -3,7 +3,7 @@ package com.test.money.transfer.controller;
 import com.test.money.transfer.model.Account;
 import com.test.money.transfer.service.AccountService;
 import com.test.money.transfer.util.JsonConverter;
-import com.test.money.transfer.validator.NullValueValidatorImpl;
+import com.test.money.transfer.validator.NotNullValueValidatorImpl;
 
 import javax.inject.Inject;
 
@@ -15,7 +15,7 @@ import static spark.Spark.*;
 public class AccountController extends AbstractController {
 
     private AccountService accountService;
-    private NullValueValidatorImpl<Account> nullValueValidator;
+    private NotNullValueValidatorImpl<Account> nullValueValidator;
 
     @Override
     public void init() {
@@ -27,6 +27,7 @@ public class AccountController extends AbstractController {
         post("/accounts", (req, resp) -> {
             Account account = JsonConverter.convertFromJson(req, Account.class);
             resp.type(JSON_FORMAT);
+            resp.status(201);
             return accountService.create(account, nullValueValidator);
         }, JsonConverter::convertToJson);
 
@@ -47,7 +48,7 @@ public class AccountController extends AbstractController {
     }
 
     @Inject
-    public void setNullValueValidator(NullValueValidatorImpl<Account> nullValueValidator) {
+    public void setNullValueValidator(NotNullValueValidatorImpl<Account> nullValueValidator) {
         this.nullValueValidator = nullValueValidator;
     }
 }

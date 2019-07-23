@@ -5,6 +5,9 @@ import com.test.money.transfer.validator.Validator;
 
 import java.util.List;
 
+/**
+ * Represents methods for work with client information.
+ */
 public interface ClientService {
 
   /**
@@ -15,5 +18,9 @@ public interface ClientService {
    */
   Client create(Client client, Validator<Client>... validators);
 
+  /**
+   * Get all Clients registered in the database.
+   * @return List of the all clients.
+   */
   List<Client> findAll();
 }

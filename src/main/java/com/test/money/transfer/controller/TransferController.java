@@ -4,11 +4,11 @@ import com.test.money.transfer.filter.TransferFilter;
 import com.test.money.transfer.model.Transfer;
 import com.test.money.transfer.service.TransferService;
 import com.test.money.transfer.util.JsonConverter;
-import com.test.money.transfer.validator.NullValueValidatorImpl;
+import com.test.money.transfer.validator.NotNullValueValidatorImpl;
 
 import javax.inject.Inject;
 
-import static spark.Spark.get;
+import static spark.Spark.post;
 
 /**
  * Rest-Controller for transfers money between accounts of the clients.
@@ -16,13 +16,14 @@ import static spark.Spark.get;
 public class TransferController extends AbstractController {
 
     private TransferService transferService;
-    private NullValueValidatorImpl<Transfer> nullValueValidator;
+    private NotNullValueValidatorImpl<Transfer> nullValueValidator;
     private TransferFilter transferFilter;
 
     @Override
     public void init() {
-        get("/transfer/", (req, resp) -> {
+        post("/transfers", (req, resp) -> {
             resp.type(JSON_FORMAT);
+            resp.status(201);
             return transferService.perform(new Transfer());
         }, JsonConverter::convertToJson);
     }
@@ -37,7 +38,7 @@ public class TransferController extends AbstractController {
     }
 
     @Inject
-    public void setNullValueValidator(NullValueValidatorImpl<Transfer> nullValueValidator) {
+    public void setNullValueValidator(NotNullValueValidatorImpl<Transfer> nullValueValidator) {
         this.nullValueValidator = nullValueValidator;
     }
 

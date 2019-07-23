@@ -4,6 +4,9 @@ import com.google.inject.Guice;
 import java.util.Arrays;
 import org.flywaydb.core.Flyway;
 
+/**
+ * Entry point for the application.
+ */
 public class TransferApplication {
 
   public static void main(String[] args) {

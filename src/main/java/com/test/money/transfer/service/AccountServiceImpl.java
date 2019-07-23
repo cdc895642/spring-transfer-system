@@ -14,6 +14,9 @@ import javax.inject.Singleton;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * Implementation of AccountService interface.
+ */
 @Slf4j
 @Singleton
 public class AccountServiceImpl implements AccountService, BaseService {

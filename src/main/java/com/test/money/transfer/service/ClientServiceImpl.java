@@ -10,6 +10,9 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.List;
 
+/**
+ * Base implementation of the ClientService interface.
+ */
 @Slf4j
 @Singleton
 public class ClientServiceImpl implements ClientService, BaseService {

@@ -4,6 +4,7 @@ import com.test.money.transfer.filter.TransferFilter;
 import com.test.money.transfer.model.Account;
 import com.test.money.transfer.model.Transfer;
 import com.test.money.transfer.validator.Validator;
+
 import java.util.concurrent.Semaphore;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -14,6 +15,9 @@ import org.mybatis.guice.transactional.Transactional;
 
 import java.time.LocalDateTime;
 
+/**
+ * Base implementation of the TransferService interface.
+ */
 @Singleton
 @Slf4j
 public class TransferServiceImpl implements TransferService {
@@ -53,6 +57,12 @@ public class TransferServiceImpl implements TransferService {
         return transfer;
     }
 
+    /**
+     * Save transfer in history if historyService is exist. Set date of the transfer and information about finished it or not.
+     *
+     * @param transfer   Transfer for save
+     * @param isFinished Information about finished transfer or not.
+     */
     private void saveHistory(Transfer transfer, boolean isFinished) {
         transfer.setFinished(isFinished);
         transfer.setDate(LocalDateTime.now());

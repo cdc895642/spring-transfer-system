@@ -6,6 +6,9 @@ import com.test.money.transfer.configuration.*;
 
 import java.util.Arrays;
 
+/**
+ * Aggregate other Google Guice modules.
+ */
 public class MainModule extends AbstractModule {
 
     @Override
