@@ -22,9 +22,10 @@ public class TransferController extends AbstractController {
     @Override
     public void init() {
         post("/transfers", (req, resp) -> {
+            Transfer transfer = JsonConverter.convertFromJson(req, Transfer.class);
             resp.type(JSON_FORMAT);
             resp.status(201);
-            return transferService.perform(new Transfer());
+            return transferService.perform(transfer);
         }, JsonConverter::convertToJson);
     }
 

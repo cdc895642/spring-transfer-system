@@ -19,7 +19,7 @@ public class AccountController extends AbstractController {
 
     @Override
     public void init() {
-        get("/account/:id", (req, resp) -> {
+        get("/accounts/:id", (req, resp) -> {
             resp.type(JSON_FORMAT);
             return accountService.findById(Integer.valueOf(req.params(":id")));
         }, JsonConverter::convertToJson);
@@ -31,7 +31,7 @@ public class AccountController extends AbstractController {
             return accountService.create(account, nullValueValidator);
         }, JsonConverter::convertToJson);
 
-        put("/account/:id", (req, resp) -> {
+        put("/accounts/:id", (req, resp) -> {
             Account account = JsonConverter.convertFromJson(req, Account.class);
             resp.type(JSON_FORMAT);
             return accountService.update(account, nullValueValidator);
