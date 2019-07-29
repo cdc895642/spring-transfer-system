@@ -11,9 +11,9 @@ import javax.inject.Singleton;
 
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.guice.transactional.Isolation;
-import org.mybatis.guice.transactional.Transactional;
 
 import java.time.LocalDateTime;
+import org.mybatis.guice.transactional.Transactional;
 
 /**
  * Base implementation of the TransferService interface.
@@ -46,7 +46,7 @@ public class TransferServiceImpl implements TransferService {
             //update amounts in the database
             accountService.update(fromAccount, validators);
             accountService.update(toAccount, validators);
-        } catch (InterruptedException e) {
+        } catch (InterruptedException e) {//InterruptedException
             log.error("exception during transfer {}", transfer, e);
             throw e;
         } finally {

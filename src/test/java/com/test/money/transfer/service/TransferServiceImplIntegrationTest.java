@@ -55,6 +55,7 @@ public class TransferServiceImplIntegrationTest extends BaseIntegrationDbTest {
         to = accountDao.findById(TO_ACCOUNT_ID);
 
         //Assert
+        System.out.println(from.getBalance() + " - " + to.getBalance());
         assertEquals(EXPECTED_RESULT, EXPECTED_FROM_ACCOUNT_BALANCE.compareTo(from.getBalance()));
         assertEquals(EXPECTED_RESULT, EXPECTED_TO_ACCOUNT_BALANCE.compareTo(to.getBalance()));
     }
